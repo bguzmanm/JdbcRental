@@ -55,7 +55,19 @@ public class FilmRepositoryImpl implements FilmRepository {
   public FilmRepositoryImpl(JdbcTemplate template) {
     this.template = template;
   }
+  
+```
+## CRUD
+A continuación verás los métodos del CRUD.
+Para los mátodos que obtienen información, utilizan la clase BeanPropertyRowMapper para mapear los 
+datos obtenidos en la consulta y entregarlos en una lista de un objeto, en el ejemplo, de `Film`.
 
+De igual forma, en el método `findOne` utilizamos un arreglo de objetos para pasar los parámetros requeridos por la 
+query: Primero 
+declaramos el parámetro con el caracter `?`, y en el método `queryForObject`, como segundo argumento, entregamos 
+este arreglo.
+
+```java
   @Override
   public List<Film> findAll() {
     String sql = "select film_id, title, description, release_year, language_id, rental_duration, rental_rate, " +
@@ -71,7 +83,13 @@ public class FilmRepositoryImpl implements FilmRepository {
 
     return template.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Film.class));
   }
+```
+En los métodos siguientes, utilizamos otros métodos de `JdbcTemplate`, en el ejemplo, el método `update`, el que nos 
+permite entregar uno a uno los parámetros luego de entregar la `query`.
 
+Esta función (me refiero a `update`), retorna la cantidad de de registros afectados.
+
+```java
   @Override
   public boolean update(Film f) {
 
