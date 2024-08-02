@@ -16,50 +16,54 @@
     </header>
     <main>
         <div class="container">
-            <h1>Listado de películas</h1>
+            <h1>Listado de actores</h1>
         </div>
-        <a th:href="@{/films/new}" class="btn btn-primary">Nueva Película</a>
+        <form class="form" th:action="@{/actors/filter}" method="get">
+            <div class="row">
+                <div class="col-2">
+                    <a th:href="@{/actors/new}" class="btn btn-primary">Nuevo/a Actor</a>
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control" placeholder="Filtro por nombre" id="firstName"
+                           name="firstName" th:value="${firstName}">
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-info">Buscar</button>
+                    <a th:href="@{/actors}" class="btn btn-warning">Limpiar</a>
+                </div>
+            </div>
+        </form>
         <div>
-            <table class="table" id="filmsTbl">
+            <table class="table" id="actorTbl">
                 <thead class="table-dark">
                     <tr>
                         <th>#</th>
-                        <th>Titulo</th>
-                        <th>Descripción</th>
-                        <th>Año</th>
-                        <th>Duración</th>
-                        <th>Censura</th>
-                        <th>Extras</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="film: ${films}">
-                        <th th:text="${film.getFilmId()}"></th>
-                        <td th:text="${film.getTitle()}"></td>
-                        <td th:text="${film.getDescription()}"></td>
-                        <td th:text="${film.getReleaseYear()}"></td>
-                        <td th:text="${film.getLength()}"></td>
-                        <td th:text="${film.getRating()}"></td>
-                        <td th:text="${film.getSpecialFeatures()}"></td>
+                    <tr th:each="actor: ${actors}">
+                        <th th:text="${actor.getActorId()}"></th>
+                        <td th:text="${actor.getFirstName()}"></td>
+                        <td th:text="${actor.getLastName()}"></td>
                         <td>
-                            <a th:href="@{/films/{id}(id=${film.getFilmId()})}" class="btn btn-primary">editar</a>
-                            <a th:href="@{/films/{id}/del(id=${film.getFilmId()})}" class="btn btn-danger">borrar</a>
+                            <a th:href="@{/actors/{id}(id=${actor.getActorId()})}" class="btn btn-primary">editar</a>
+                            <a th:href="@{/actors/{id}/del(id=${actor.getActorId()})}" class="btn btn-danger">borrar</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
-
         </div>
     </main>
-
 </div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/2.1.3/js/dataTables.min.js"></script>
 <script>
     $(document).ready(function(){
-        $('#filmsTbl').DataTable();
+        $('#actorTbl').DataTable();
      });
 </script>
 </body>

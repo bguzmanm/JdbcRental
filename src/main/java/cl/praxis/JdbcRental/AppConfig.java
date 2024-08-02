@@ -28,5 +28,4 @@ public class AppConfig {
     source.setPassword(env.getProperty("password"));
     return source;
   }
-
 }
